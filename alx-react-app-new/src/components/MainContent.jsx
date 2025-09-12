@@ -13,8 +13,12 @@ function MainContent() {
       <p style={{ lineHeight: 1.6 }}>
         Explore profiles of amazing cities and their unique features.
       </p>
+      <p style={{ marginTop: "10px", fontStyle: "italic" }}>
+        I love to visit New York, Paris, and Tokyo.
+      </p>
     </main>
   );
 }
 
 export default MainContent;
+
