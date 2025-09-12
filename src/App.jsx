@@ -4,7 +4,7 @@ import Header from './components/Header';
 import MainContent from './components/MainContent';
 import Footer from './components/Footer';
 import UserProfile from './components/UserProfile';
-import Counter from './components/Counter'; // ✅ Import Counter
+import Counter from './components/Counter';
 
 function App() {
   return (
@@ -22,10 +22,11 @@ function App() {
       <UserProfile name="Bob" age={30} bio="Enjoys cooking and traveling" />
       <UserProfile name="Charlie" age={28} bio="Passionate about music and art" />
 
-      {/* ✅ Task 4: Counter component */}
+      {/* Task 4: Counter component */}
       <Counter />
     </div>
   );
 }
 
 export default App;
+
