@@ -1,7 +1,6 @@
-import React from 'react';
-import UserDetails from './UserDetails.jsx';
+// src/UserInfo.jsx
+import UserDetails from './UserDetails';
 
-// This component no longer needs to receive the userData prop.
 function UserInfo() {
   return <UserDetails />;
 }
