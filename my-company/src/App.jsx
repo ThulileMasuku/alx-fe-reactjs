@@ -1,26 +1,22 @@
-import './App.css';
-import WelcomeMessage from './components/WelcomeMessage';
-import Header from './components/Header';
-import MainContent from './components/MainContent';
-import Footer from './components/Footer';
-import UserProfile from './components/UserProfile';
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Navbar";
+import Home from "./Home";
+import About from "./About";
+import Services from "./Services";
+import Contact from "./Contact";
 
 function App() {
   return (
-    <div className="App">
-      {/* Task 1: WelcomeMessage */}
-      <WelcomeMessage />
-
-      {/* Task 2: Header, MainContent, Footer */}
-      <Header />
-      <MainContent />
-      <Footer />
-
-      {/* Task 3: UserProfile components */}
-      <UserProfile name="Alice" age={25} bio="Loves hiking and photography" />
-      <UserProfile name="Bob" age={30} bio="Enjoys cooking and traveling" />
-      <UserProfile name="Charlie" age={28} bio="Passionate about music and art" />
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Router>
   );
 }
 
