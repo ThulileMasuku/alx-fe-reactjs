@@ -9,7 +9,7 @@ export const useRecipeStore = create((set) => ({
   addRecipe: (recipe) =>
     set((state) => ({
       recipes: [...state.recipes, recipe],
-      filteredRecipes: [...state.recipes, recipe], // keep filtered list updated
+      filteredRecipes: [...state.recipes, recipe],
     })),
 
   // Update a recipe
