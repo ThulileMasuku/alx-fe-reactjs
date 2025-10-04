@@ -1,6 +1,5 @@
 {
   "name": "recipe-sharing-app",
-   f5c2d51 (Added advanced search and filtering with Zustand)
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -24,5 +23,5 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "vite": "^7.1.2"
-
   }
+}
