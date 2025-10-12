@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddRecipeForm from "./components/AddRecipeForm";
@@ -29,14 +28,3 @@ function App() {
 }
 
 export default App;
-=======
-import Counter from './components/Counter';
-
-function App() {
-  return (
-    <Counter />
-  );
-}
-
-export default App;
->>>>>>> 69b0269219b5a01cbdf73c8751f3597334956faf
