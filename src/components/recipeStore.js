@@ -1,17 +1,38 @@
-// src/components/recipeStore.js
-import create from "zustand";
+// recipeStore.js
 
-const useRecipeStore = create((set) => ({
-  recipes: [],
+// Initial recipes array
+let recipes = [];
 
-  // Add a single recipe
-  addRecipe: (recipe) =>
-    set((state) => ({
-      recipes: [...state.recipes, recipe],
-    })),
+/**
+ * Add a new recipe
+ * @param {Object} recipe - The recipe object to add
+ */
+export const addRecipe = (recipe) => {
+  recipes.push(recipe);
+};
 
-  // Replace all recipes (setter)
-  setRecipes: (recipes) => set({ recipes }),
-}));
+/**
+ * Update an existing recipe by id
+ * @param {string|number} id - The id of the recipe to update
+ * @param {Object} updatedRecipe - The new recipe data
+ */
+export const updateRecipe = (id, updatedRecipe) => {
+  const index = recipes.findIndex((r) => r.id === id);
+  if (index !== -1) {
+    recipes[index] = { ...recipes[index], ...updatedRecipe };
+  }
+};
 
-export default useRecipeStore;
+/**
+ * Delete a recipe by id
+ * @param {string|number} id - The id of the recipe to delete
+ */
+export const deleteRecipe = (id) => {
+  recipes = recipes.filter((r) => r.id !== id);
+};
+
+/**
+ * Get all recipes
+ * @returns {Array} - List of recipes
+ */
+export const getRecipes = () => recipes;
