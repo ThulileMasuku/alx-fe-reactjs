@@ -1,11 +1,20 @@
-import React from 'react';
+import React from "react";
+import useRecipeStore from "./recipeStore";
 
-function RecipeList() {
+const RecipeList = () => {
+  const recipes = useRecipeStore((state) => state.recipes);
+
   return (
-    <ul>
-      <li>Example Recipe</li>
-    </ul>
+    <div>
+      <h2>Recipe List</h2>
+      {recipes.map((recipe) => (
+        <div key={recipe.id}>
+          <h3>{recipe.title}</h3>
+          <p>{recipe.instructions}</p>
+        </div>
+      ))}
+    </div>
   );
-}
+};
 
 export default RecipeList;
