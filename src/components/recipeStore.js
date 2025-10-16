@@ -1,24 +1,23 @@
-// recipeStore.js
+import { create } from 'zustand';
 
-let recipes = [];
+const useRecipeStore = create((set) => ({
+  recipes: [],
+  
+  addRecipe: (recipe) => set((state) => ({
+    recipes: [...state.recipes, { ...recipe, id: Date.now() }]
+  })),
+  
+  updateRecipe: (updatedRecipe) => set((state) => ({
+    recipes: state.recipes.map((recipe) =>
+      recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+    )
+  })),
+  
+  deleteRecipe: (id) => set((state) => ({
+    recipes: state.recipes.filter((recipe) => recipe.id !== id)
+  })),
+  
+  setRecipes: (recipes) => set({ recipes })
+}));
 
-// Add a recipe
-export const addRecipe = (recipe) => {
-  recipes.push(recipe);
-};
-
-// Update a recipe by id
-export const updateRecipe = (id, updatedRecipe) => {
-  const index = recipes.findIndex((r) => r.id === id);
-  if (index !== -1) {
-    recipes[index] = { ...recipes[index], ...updatedRecipe };
-  }
-};
-
-// Delete a recipe by id
-export const deleteRecipe = (id) => {
-  recipes = recipes.filter((r) => r.id !== id);
-};
-
-// Optional: Get all recipes (some checkers require this)
-export const getRecipes = () => recipes;
+export default useRecipeStore;
