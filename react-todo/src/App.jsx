@@ -1,15 +1,12 @@
-import RegistrationForm from './components/RegistrationForm';
-import FormikForm from './components/FormikForm'; // Import the new component
-import './App.css';
+import React from 'react';
+// 1. Import the TodoList component
+import TodoList from './TodoList'; 
 
 function App() {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h1>Form Handling in React</h1>
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <RegistrationForm />
-        <FormikForm />
-      </div>
+    <div className="App" style={{ padding: '20px' }}>
+      {/* 2. Render the TodoList component */}
+      <TodoList />
     </div>
   );
 }
