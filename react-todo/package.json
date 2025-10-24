@@ -1,0 +1,15 @@
+{
+  "name": "react-todo",
+  "version": "0.1.0",
+  // ... other properties
+  "dependencies": {
+    "react": "^18.2.0", // Use the newer version
+    // all required dependencies from both sides
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "jest",
+    // Keep other important scripts from the remote if necessary
+  },
+  // ...
+}
