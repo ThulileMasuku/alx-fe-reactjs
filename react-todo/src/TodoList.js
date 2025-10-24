@@ -4,43 +4,45 @@ import React, { useState } from 'react';
 const initialTodos = [
   { id: 1, text: 'Learn React Testing Library', completed: false },
   { id: 2, text: 'Build a Todo List', completed: true },
-  { id: 3, text: 'Write comprehensive tests', completed: false },
+  { id: 3, text: 'Write comprehensive tests', completed: false }, // ID 3 is crucial for the delete test
 ];
 
 /**
- * Todo List component: Manages the state of todos (add, toggle, delete).
+ * TodoList Component
+ * Manages the state for adding, toggling, and deleting todo items.
  */
 const TodoList = () => {
   const [todos, setTodos] = useState(initialTodos);
   const [newTodoText, setNewTodoText] = useState('');
 
-  // Function to add a new todo item
+  // Handles adding a new todo item
   const addTodo = (e) => {
     e.preventDefault();
-    if (newTodoText.trim() === '') return;
+    const trimmedText = newTodoText.trim();
+    if (trimmedText === '') return;
 
     const newTodo = {
       id: Date.now(), // Simple unique ID
-      text: newTodoText,
+      text: trimmedText,
       completed: false,
     };
 
-    setTodos([...todos, newTodo]);
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
     setNewTodoText('');
   };
 
-  // Function to toggle the completion status of a todo
+  // Handles toggling the completion status
   const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
-  // Function to delete a todo item
+  // Handles deleting a todo item
   const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -54,17 +56,17 @@ const TodoList = () => {
           value={newTodoText}
           onChange={(e) => setNewTodoText(e.target.value)}
           placeholder="Add a new todo"
-          data-testid="todo-input" // For testing
+          data-testid="todo-input" // For testing (Test 2)
         />
-        <button type="submit" data-testid="add-button">Add</button>
+        <button type="submit" data-testid="add-button">Add</button> {/* For testing (Test 2) */}
       </form>
 
       {/* Todo List Display */}
-      <ul data-testid="todo-list">
+      <ul data-testid="todo-list" style={{ listStyle: 'none', padding: 0 }}>
         {todos.map((todo) => (
           <li
             key={todo.id}
-            data-testid={`todo-item-${todo.id}`} // For testing individual items
+            data-testid={`todo-item-${todo.id}`}
             style={{
               textDecoration: todo.completed ? 'line-through' : 'none',
               cursor: 'pointer',
@@ -76,22 +78,24 @@ const TodoList = () => {
               alignItems: 'center',
             }}
           >
-            {/* Toggle functionality on click */}
+            {/* Toggle functionality on click (Test 3) */}
             <span onClick={() => toggleTodo(todo.id)} className="todo-text">
               {todo.text}
             </span>
             
-            {/* Delete button */}
+            {/* Delete button (Test 4) */}
             <button 
               onClick={() => deleteTodo(todo.id)} 
-              data-testid={`delete-button-${todo.id}`} // For testing
-              style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white' }}
+              data-testid={`delete-button-${todo.id}`} 
+              style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '3px' }}
             >
               Delete
             </button>
           </li>
         ))}
       </ul>
+
+      {/* Empty State Message (Test 5) */}
       {todos.length === 0 && <p>No todos left! 🎉</p>}
     </div>
   );
