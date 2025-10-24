@@ -1,0 +1,12 @@
+/* src/index.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom or base styles below the imports */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #fafafa;
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "title": "Spaghetti Carbonara",
+    "summary": "A classic Italian pasta dish with eggs, cheese, cured pork (guanciale or pancetta), and black pepper.",
+    "image": "https://images.unsplash.com/photo-1595295321528-98e8e7894a47?q=80&w=1280&h=720&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "ingredients": [
+      "200g Spaghetti",
+      "100g Guanciale (or Pancetta)",
+      "2 large Eggs",
+      "50g Pecorino Romano cheese, grated",
+      "Black pepper, freshly ground"
+    ],
+    "instructions": [
+      "Cook the guanciale in a frying pan until crispy. Remove from heat and set aside.",
+      "In a bowl, mix the eggs, grated Pecorino Romano, and a generous amount of black pepper.",
+      "Cook the spaghetti according to package directions. Reserve some pasta water.",
+      "Drain the spaghetti, add it to the pan with the guanciale fat (off the heat).",
+      "Quickly pour in the egg mixture and stir vigorously, adding reserved pasta water until a creamy sauce forms. Serve immediately."
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Chicken Tikka Masala",
+    "summary": "Chunks of grilled chicken (tikka) cooked in a smooth, buttery & creamy tomato-based gravy.",
+    "image": "https://images.unsplash.com/photo-1625944111306-03c7340e4f2e?q=80&w=1280&h=720&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "ingredients": [
+      "500g Chicken breast, cubed",
+      "1 cup plain yogurt",
+      "2 tbsp Tikka Masala paste",
+      "1 tbsp Ginger-Garlic paste",
+      "1 can (400g) crushed tomatoes",
+      "1/2 cup heavy cream"
+    ],
+    "instructions": [
+      "Marinate the chicken in yogurt, half of the Tikka Masala paste, and ginger-garlic paste for at least 30 minutes.",
+      "Grill or bake the chicken until cooked through (this is the 'tikka' step).",
+      "Sauté the remaining Tikka Masala paste, add crushed tomatoes, and simmer for 10 minutes.",
+      "Stir in the cooked chicken and heavy cream. Simmer gently until heated through. Serve with rice."
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Vegan Lentil Soup",
+    "summary": "A hearty, nutritious, and easy-to-make soup with brown lentils, vegetables, and aromatic spices.",
+    "image": "https://images.unsplash.com/photo-1512683050186-07a82c610222?q=80&w=1280&h=720&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "ingredients": [
+      "1 cup brown lentils",
+      "4 cups vegetable broth",
+      "1 carrot, diced",
+      "1 celery stalk, diced",
+      "1 onion, chopped",
+      "1 tsp cumin"
+    ],
+    "instructions": [
+      "Rinse the lentils.",
+      "Sauté the onion, carrot, and celery in a large pot until softened.",
+      "Stir in the cumin, lentils, and vegetable broth.",
+      "Bring to a boil, then reduce heat and simmer for 30-40 minutes, or until lentils are tender. Season with salt and pepper."
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Classic Pancakes",
+    "summary": "Fluffy buttermilk pancakes perfect for breakfast, topped with syrup and fresh berries.",
+    "image": "https://images.unsplash.com/photo-1579461109968-450ffb47000d?q=80&w=1280&h=720&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "ingredients": [
+      "1.5 cups all-purpose flour",
+      "3.5 tsp baking powder",
+      "1 tsp salt",
+      "1 tbsp white sugar",
+      "1.25 cups milk",
+      "1 large egg",
+      "3 tbsp butter, melted"
+    ],
+    "instructions": [
+      "In a large bowl, whisk together the dry ingredients (flour, baking powder, salt, sugar).",
+      "In a separate bowl, mix the wet ingredients (milk, egg, melted butter).",
+      "Pour the wet mixture into the dry mixture and stir until just combined (don't overmix).",
+      "Pour 1/4 cup of batter onto a lightly oiled griddle set to medium heat. Cook until bubbles appear on the surface. Flip and cook until browned."
+    ]
+  }
+]
