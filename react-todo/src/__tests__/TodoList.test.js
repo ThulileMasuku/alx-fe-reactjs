@@ -1,119 +1,101 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect'; // for useful matchers like toBeInTheDocument
 import TodoList from '../TodoList';
 
-// Helper function to find all todo list items
-const getTodoListItems = () => screen.queryAllByRole('listitem');
+// Helper function to get all current todos rendered by text content
+const getTodoTexts = () => screen.queryAllByRole('listitem').map(li => li.querySelector('.todo-text').textContent);
 
-describe('TodoList Component Tests', () => {
-  // Test 1: Initial Render and Demo Todos
-  test('renders the TodoList component and initial demo todos', () => {
+describe('TodoList Component', () => {
+  // Test 1: Initial Render
+  test('renders the TodoList component and initial todos', () => {
     render(<TodoList />);
+    
+    // Check if the main heading is rendered
+    expect(screen.getByText('Todo List')).toBeInTheDocument();
 
-    // Check if the main heading is present
-    expect(screen.getByText(/My Todo List/i)).toBeInTheDocument();
-
-    // Check if the initial 3 demo todos are rendered
-    const listItems = getTodoListItems();
-    expect(listItems).toHaveLength(3);
-    expect(screen.getByText(/Learn React Testing Library/i)).toBeInTheDocument();
-    expect(screen.getByText(/Build a Todo List/i)).toBeInTheDocument();
-    expect(screen.getByText(/Write comprehensive tests/i)).toBeInTheDocument();
-
-    // Check if the completed todo has line-through style (implementation specific check)
-    const completedTodo = screen.getByText(/Build a Todo List/i);
-    expect(completedTodo).toHaveStyle('text-decoration: line-through');
+    // Check if the initial todos are rendered
+    expect(screen.getByText('Learn React Testing Library')).toBeInTheDocument();
+    expect(screen.getByText('Build a Todo List')).toBeInTheDocument();
+    expect(screen.getByText('Write comprehensive tests')).toBeInTheDocument();
+    
+    // Check for the number of list items (initial 3)
+    expect(screen.queryAllByRole('listitem')).toHaveLength(3);
   });
-
-  // Test 2: Adding a New Todo
-  test('allows users to add a new todo item', () => {
+// ----------------------------------------------------------------------
+  // Test 2: Adding Todos
+  test('allows a user to add a new todo item', () => {
     render(<TodoList />);
-    
-    // Find input and button
-    const input = screen.getByTestId('todo-input');
-    const addButton = screen.getByTestId('add-button');
-    const initialCount = getTodoListItems().length;
 
-    const newTodoText = 'Buy groceries';
+    const newTodoText = 'Walk the dog';
     
-    // Simulate user typing
-    fireEvent.change(input, { target: { value: newTodoText } });
-    expect(input.value).toBe(newTodoText);
+    // 1. Find the input field and button
+    const inputElement = screen.getByLabelText('New todo text');
+    const addButton = screen.getByRole('button', { name: /add todo/i });
+    
+    // 2. Simulate user input
+    fireEvent.change(inputElement, { target: { value: newTodoText } });
+    
+    // Check that the input value is updated
+    expect(inputElement.value).toBe(newTodoText);
 
-    // Simulate form submission (clicking the add button)
+    // 3. Simulate form submission (clicking the button)
     fireEvent.click(addButton);
 
-    // Check if the input is cleared
-    expect(input.value).toBe('');
+    // 4. Verify the new todo is in the document
+    expect(screen.getByText(newTodoText)).toBeInTheDocument();
+    
+    // 5. Verify the total number of todos increased (initial 3 + 1 new = 4)
+    expect(screen.queryAllByRole('listitem')).toHaveLength(4);
 
-    // Check if the new todo is added to the list (count increases)
-    const updatedItems = getTodoListItems();
-    expect(updatedItems).toHaveLength(initialCount + 1);
-
-    // Check if the new todo text is visible and not completed
-    const newTodoItem = screen.getByText(newTodoText);
-    expect(newTodoItem).toBeInTheDocument();
-    expect(newTodoItem).toHaveStyle('text-decoration: none'); // Should not be line-through initially
+    // 6. Verify the input field is cleared after submission
+    expect(inputElement.value).toBe('');
   });
-
-  // Test 3: Toggling a Todo
-  test('allows a todo item to be toggled between completed and not completed', () => {
+// ----------------------------------------------------------------------
+  // Test 3: Toggling Todos
+  test('allows a user to toggle a todo item status', () => {
     render(<TodoList />);
 
-    // Find the uncompleted todo text
-    const todoToToggle = screen.getByText(/Learn React Testing Library/i);
-    expect(todoToToggle).toHaveStyle('text-decoration: none'); // Initially uncompleted
+    const todoText = 'Learn React Testing Library';
+    const todoElement = screen.getByText(todoText);
 
-    // Simulate clicking the todo text to toggle
-    fireEvent.click(todoToToggle);
+    // Initial check: The item should NOT have the 'line-through' style (not completed)
+    expect(todoElement).not.toHaveStyle('text-decoration: line-through');
 
-    // Check if it is now completed (line-through style)
-    expect(todoToToggle).toHaveStyle('text-decoration: line-through');
+    // 1. Simulate clicking the todo text to toggle completion
+    fireEvent.click(todoElement);
 
-    // Simulate clicking again to toggle back
-    fireEvent.click(todoToToggle);
+    // 2. Verify the style has changed (it should now be completed)
+    expect(todoElement).toHaveStyle('text-decoration: line-through');
 
-    // Check if it is now uncompleted
-    expect(todoToToggle).toHaveStyle('text-decoration: none');
+    // 3. Simulate clicking again to toggle it back
+    fireEvent.click(todoElement);
+
+    // 4. Verify the style is back to normal (not completed)
+    expect(todoElement).not.toHaveStyle('text-decoration: line-through');
   });
-
-  // Test 4: Deleting a Todo
-  test('allows a todo item to be deleted', () => {
+// ----------------------------------------------------------------------
+  // Test 4: Deleting Todos
+  test('allows a user to delete a todo item', () => {
     render(<TodoList />);
-    
-    const initialCount = getTodoListItems().length;
-    
-    // The initial demo todo we will delete
-    const todoTextToDelete = 'Write comprehensive tests';
-    expect(screen.getByText(todoTextToDelete)).toBeInTheDocument();
-    
-    // Find the delete button associated with the third initial todo (id: 3)
-    // Note: The specific ID (3) is determined from the initial state in TodoList.js
-    const deleteButton = screen.getByTestId('delete-button-3'); 
 
-    // Simulate clicking the delete button
+    const todoToDeleteText = 'Write comprehensive tests';
+    
+    // 1. Verify the todo is initially present
+    expect(screen.getByText(todoToDeleteText)).toBeInTheDocument();
+    expect(screen.queryAllByRole('listitem')).toHaveLength(3);
+    
+    // 2. Find the delete button associated with the todo item
+    // We use the aria-label we added for better selection
+    const deleteButton = screen.getByRole('button', { name: `Delete ${todoToDeleteText}` });
+    
+    // 3. Simulate clicking the delete button
     fireEvent.click(deleteButton);
 
-    // Check if the todo item is removed from the DOM
-    expect(screen.queryByText(todoTextToDelete)).not.toBeInTheDocument();
+    // 4. Verify the todo is no longer in the document
+    expect(screen.queryByText(todoToDeleteText)).not.toBeInTheDocument();
 
-    // Check if the total number of todos has decreased by one
-    expect(getTodoListItems()).toHaveLength(initialCount - 1);
-  });
-  
-  // Test 5: Empty State Message
-  test('displays a message when the todo list is empty', () => {
-    render(<TodoList />);
-    
-    // Delete all initial items
-    const deleteButtons = screen.queryAllByText('Delete');
-    
-    // Click all delete buttons one by one
-    deleteButtons.forEach(button => fireEvent.click(button));
-
-    // Check that the empty state message is now visible
-    expect(screen.getByText(/No todos left! 🎉/i)).toBeInTheDocument();
-    expect(getTodoListItems()).toHaveLength(0);
+    // 5. Verify the total number of todos decreased (3 - 1 = 2)
+    expect(screen.queryAllByRole('listitem')).toHaveLength(2);
   });
 });

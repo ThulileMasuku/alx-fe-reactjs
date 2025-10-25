@@ -1,104 +1,79 @@
 import React, { useState } from 'react';
+import AddTodoForm from './AddTodoForm';
+import './TodoList.css'; // Assuming you might have some basic CSS
 
-// Initial data for demonstration
+// Initial state for demonstration
 const initialTodos = [
   { id: 1, text: 'Learn React Testing Library', completed: false },
   { id: 2, text: 'Build a Todo List', completed: true },
-  { id: 3, text: 'Write comprehensive tests', completed: false }, // ID 3 is crucial for the delete test
+  { id: 3, text: 'Write comprehensive tests', completed: false },
 ];
 
-/**
- * TodoList Component
- * Manages the state for adding, toggling, and deleting todo items.
- */
-const TodoList = () => {
+function TodoList() {
   const [todos, setTodos] = useState(initialTodos);
-  const [newTodoText, setNewTodoText] = useState('');
 
-  // Handles adding a new todo item
-  const addTodo = (e) => {
-    e.preventDefault();
-    const trimmedText = newTodoText.trim();
-    if (trimmedText === '') return;
-
+  // Function to add a new todo
+  const addTodo = (text) => {
+    if (text.trim() === '') return;
     const newTodo = {
       id: Date.now(), // Simple unique ID
-      text: trimmedText,
+      text,
       completed: false,
     };
-
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
-    setNewTodoText('');
+    setTodos([...todos, newTodo]);
   };
 
-  // Handles toggling the completion status
+  // Function to toggle a todo's completion status
   const toggleTodo = (id) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
+    setTodos(
+      todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
-  // Handles deleting a todo item
+  // Function to delete a todo
   const deleteTodo = (id) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
     <div className="todo-list-container">
-      <h1>My Todo List 📝</h1>
-
-      {/* Add Todo Form */}
-      <form onSubmit={addTodo} className="add-todo-form">
-        <input
-          type="text"
-          value={newTodoText}
-          onChange={(e) => setNewTodoText(e.target.value)}
-          placeholder="Add a new todo"
-          data-testid="todo-input" // For testing (Test 2)
-        />
-        <button type="submit" data-testid="add-button">Add</button> {/* For testing (Test 2) */}
-      </form>
-
-      {/* Todo List Display */}
-      <ul data-testid="todo-list" style={{ listStyle: 'none', padding: 0 }}>
-        {todos.map((todo) => (
-          <li
-            key={todo.id}
-            data-testid={`todo-item-${todo.id}`}
-            style={{
-              textDecoration: todo.completed ? 'line-through' : 'none',
-              cursor: 'pointer',
-              marginBottom: '8px',
-              padding: '5px',
-              border: '1px solid #ccc',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            {/* Toggle functionality on click (Test 3) */}
-            <span onClick={() => toggleTodo(todo.id)} className="todo-text">
-              {todo.text}
-            </span>
-            
-            {/* Delete button (Test 4) */}
-            <button 
-              onClick={() => deleteTodo(todo.id)} 
-              data-testid={`delete-button-${todo.id}`} 
-              style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '3px' }}
+      <h1>Todo List</h1>
+      <AddTodoForm addTodo={addTodo} />
+      
+      {todos.length === 0 ? (
+        <p>No todos yet! Add one above.</p>
+      ) : (
+        <ul className="todo-items-list">
+          {todos.map((todo) => (
+            <li
+              key={todo.id}
+              className={`todo-item ${todo.completed ? 'completed' : ''}`}
             >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      {/* Empty State Message (Test 5) */}
-      {todos.length === 0 && <p>No todos left! 🎉</p>}
+              <span
+                className="todo-text"
+                onClick={() => toggleTodo(todo.id)}
+                style={{
+                  textDecoration: todo.completed ? 'line-through' : 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                {todo.text}
+              </span>
+              <button 
+                className="delete-button"
+                onClick={() => deleteTodo(todo.id)}
+                aria-label={`Delete ${todo.text}`} // Good practice for accessibility
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
-};
+}
 
 export default TodoList;
