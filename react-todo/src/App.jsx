@@ -1,14 +1,12 @@
+// src/App.jsx
 import React from 'react';
-// 1. Import the TodoList component
-import TodoList from './TodoList'; 
+import TodoList from './components/TodoList';
 
 function App() {
   return (
-    <div className="App" style={{ padding: '20px' }}>
-      {/* 2. Render the TodoList component */}
+    <div className="App">
       <TodoList />
     </div>
   );
 }
-
 export default App;
